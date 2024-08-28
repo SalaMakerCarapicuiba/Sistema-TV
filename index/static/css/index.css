@@ -1,3 +1,61 @@
-h1 {
-    color: red;
+.left-column {
+    width: 65%;
+}
+
+.divisor {
+    width: 3%;
+}
+
+.divisor .line {
+    width: 33.33%;
+    height: 100%;
+}
+
+.divisor .line:nth-child(1) {
+    background-color: #F8231E;
+}
+
+.divisor .line:nth-child(2) {
+    background-color: #FC8211;
+}
+
+.divisor .line:nth-child(3) {
+    background-color: #FFA302;
+}
+
+.right-column {
+    width: 32%;
+    background-color: #032376;
+}
+
+.right-column .small-window {
+    width: 85%;
+    height: 41.66%;
+     margin: 1rem 0 1rem 2rem;
+    background-color: white;
+}
+
+.right-column .textbox {
+    align-self: center;
+    background-color: #FFA500;
+    width: 85%;
+    height: 18%;
+    padding: 1rem;
+    border-radius: 10px;
+    gap: .5rem;
+}
+
+.right-column .textbox > h1 {
+    font-size: 24pt;
+    color: #021953;
+    text-align: center;
+}
+
+.right-column .textbox > p {
+    font-size: 16pt;
+    text-align: center;
+}
+
+.left-column, .divisor .left-column {
+    height: 100vh;
 }

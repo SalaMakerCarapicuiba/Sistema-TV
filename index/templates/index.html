@@ -6,8 +6,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Horário de Aulas</title>
     <link rel="stylesheet" href="{% static "css/index.css" %}">
+    <link rel="stylesheet" href="{% static "css/global.css" %}">
 </head>
-<body>
-    <h1>Teste</h1>
+<body class="flex space-between">
+    <div class="left-column">
+        <h1>Teste</h1>
+    </div>
+    <div class="divisor flex space-between">
+        <div class="line"></div>
+        <div class="line"></div>
+        <div class="line"></div>
+    </div>
+    <div class="right-column flex column">
+        <div class="small-window">
+            <h1>Titulo</h1>
+        </div>
+
+        <div class="textbox flex column">
+            <h1>Titulo Verdana 24pt</h1>
+            <p>is simply dummy text of the printing and typesetting industry. Just ignore it</p>
+        </div>
+    </div>
 </body>
 </html>
