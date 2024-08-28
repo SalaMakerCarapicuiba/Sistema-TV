@@ -17,6 +17,10 @@
     justify-content: center;
 }
 
+.vcenter {
+    align-items: center;
+}
+
 .column {
     flex-direction: column;
 }

@@ -56,6 +56,17 @@
     text-align: center;
 }
 
+.right-column .footer {
+    height: 9%;
+    width: 100%;
+    background-color: gainsboro;
+    gap: 15%;
+    font-size: 20pt;
+    font-weight: bold;
+    color: rgb(100, 108, 112);
+    margin-top: auto;
+}
+
 .left-column, .divisor .left-column {
     height: 100vh;
 }
