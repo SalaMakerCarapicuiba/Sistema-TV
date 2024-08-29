@@ -2,6 +2,32 @@
     width: 65%;
 }
 
+.left-column .left-window {
+    height: 70%;
+}
+
+.left-column .description {
+    height: 30%;
+    background-color: #032376;
+}
+
+.description .textbox {
+    padding: 1rem;
+    text-align: center;
+    font-size: 16pt;
+    gap: .6rem;
+    font-weight: lighter;
+    color: rgb(212, 212, 212);
+}
+
+.description .textbox h3 {
+    font-size: 18pt;
+    font-weight: bold;
+    color: white;
+}
+
+/* Divisor */
+
 .divisor {
     width: 3%;
 }
@@ -22,6 +48,9 @@
 .divisor .line:nth-child(3) {
     background-color: #FFA302;
 }
+
+
+/* Right Column */ 
 
 .right-column {
     width: 32%;
@@ -56,12 +85,12 @@
     text-align: center;
 }
 
-.right-column .footer {
-    height: 9%;
-    width: 100%;
+.footer {
+    height: 9vh;
+    padding: 0 1.2rem;
     background-color: gainsboro;
     gap: 15%;
-    font-size: 20pt;
+    font-size: 24pt;
     font-weight: bold;
     color: rgb(100, 108, 112);
     margin-top: auto;
