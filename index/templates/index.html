@@ -35,7 +35,7 @@
                 <div class="footer-left-text flex center vcenter">
                     <p>Hoje</p>
                     <img src="{% static "src/icons/sun-fill.svg" %}" alt="">
-                    <p>18°/31°</p>
+                    <p>{{ temp_min }}°/{{ temp_max }}°</p>
                 </div>
 
             </div>
@@ -74,7 +74,7 @@
         <div class="footer flex center vcenter">
             <p>Amanhã</p>
             <img src="{% static "src/icons/umbrella-simple-fill.svg" %}" alt="">
-            <p>18°/31°</p>
+            <p>{{ temp_min }}°/{{ temp_max }}°</p>
         </div>
     </div>
 </body>
