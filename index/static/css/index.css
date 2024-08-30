@@ -11,6 +11,32 @@
     background-color: #032376;
 }
 
+.left-footer {
+    padding: 0 !important;
+    gap: 0 !important;
+}
+
+.left-footer .footer-left-text {
+    height: 100%;
+}
+
+.left-footer .footer-left-text:nth-child(1) {
+    width: 35%;
+    background-color: #F8231E;
+    color: white;
+}
+
+.left-footer .footer-left-text:nth-child(2) {
+    width: 20%;
+    color: white;
+    background-color: #FC8211;
+}
+
+.left-footer .footer-left-text:nth-child(3) {
+    width: 45%;
+    gap: 5%;
+}
+
 .description .textbox {
     padding: 1rem;
     text-align: center;
@@ -50,17 +76,51 @@
 }
 
 
-/* Right Column */ 
+/* Right Column */
 
 .right-column {
     width: 32%;
     background-color: #032376;
 }
 
-.right-column .small-window {
-    width: 85%;
-    height: 41.66%;
-     margin: 1rem 0 1rem 2rem;
+.right-column .right-window {
+    width: 100%;
+    height: 46%;
+}
+
+.right-window .background {
+ height: 100%;
+ width: 100%;
+}
+
+.background-red {
+    height: 87%;
+    width: 80%;
+    background-color: #F8231E;
+    margin: 0rem 2rem 1.5rem 0px;
+}
+
+.background-org {
+    height: 40%;
+    width: 25.6%;
+    background-color: #FC8211;
+    position: fixed;
+    margin: 0 1.5rem 1rem 0;
+}
+
+.background-ylw {
+    height: 40%;
+    width: 25.6%;
+    background-color: #FFA500;
+    position: fixed;
+    margin: 0rem .8rem .3rem 0rem;
+}
+
+.small-window {
+    position: fixed;
+    width: 25.6%;
+    height: 40%;
+    margin: 0.4rem 0rem 0rem 0rem;
     background-color: white;
 }
 
@@ -85,14 +145,20 @@
     text-align: center;
 }
 
+.fatec-banner {
+    align-self: center;
+    margin-top: 2rem;
+    width: 60%;
+}
+
 .footer {
-    height: 9vh;
-    padding: 0 1.2rem;
+    height: 10vh;
+    padding: 0 5rem;
     background-color: gainsboro;
-    gap: 15%;
+    gap: 10%;
     font-size: 24pt;
     font-weight: bold;
-    color: rgb(100, 108, 112);
+    color: #5D717A;
     margin-top: auto;
 }
 

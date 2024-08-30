@@ -10,7 +10,7 @@
 </head>
 <body class="flex space-between">
     <div class="left-column">
-        
+
         <div class="left-window">
             <h1>Teste</h1>
         </div>
@@ -22,20 +22,20 @@
                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent semper iaculis vulputate. Cras vel enim aliquet, commodo velit eu, commodo diam. Integer placerat eget enim quis faucibus. Cras vel en</p>
             </div>
 
-            <div class="footer flex center vcenter">
+            <div class="left-footer footer flex center vcenter">
 
-                <div class="footer-right-text flex ">
+                <div class="footer-left-text flex center vcenter">
                     <p>00/00/2000</p>
                 </div>
 
-                <div class="footer-right-text flex ">
+                <div class="footer-left-text flex center vcenter">
                     <p>00:00</p>
                 </div>
 
-                <div class="footer-right-text flex ">
-                    <p>Amanhã</p>
-                    <img src="#" alt="#">
-                    <p>18° / 31°</p>
+                <div class="footer-left-text flex center vcenter">
+                    <p>Hoje</p>
+                    <img src="{% static "src/icons/sun-fill.svg" %}" alt="">
+                    <p>18°/31°</p>
                 </div>
 
             </div>
@@ -50,15 +50,18 @@
         <div class="line"></div>
     </div>
 
-    <div class="right-column flex column">
-        <div class="background">
-            <div class="back-red"></div>
-            <div class="back-org"></div>
-            <div class="back-ylw"></div>
-        </div>
+    <div class="right-column flex column center">
 
-        <div class="small-window">
-            <h1>Titulo</h1>
+        <div class="right-window flex center">
+
+            <div class="background flex center vcenter">
+                <div class="background-red"></div>
+                <div class="background-org"></div>
+                <div class="background-ylw"></div>
+                <div class="small-window">
+                    <h1>Titulo</h1>
+                </div>
+            </div>
         </div>
 
         <div class="textbox flex column">
@@ -66,10 +69,12 @@
             <p>is simply dummy text of the printing and typesetting industry. Just ignore it</p>
         </div>
 
+        <img class="fatec-banner" src="{% static "src/banners/FatecCarapicuiba_Marca_Branca_Cor_SombraLateral.png" %}" alt="">
+
         <div class="footer flex center vcenter">
             <p>Amanhã</p>
-            <img src="#" alt="#">
-            <p>18° / 31°</p>
+            <img src="{% static "src/icons/umbrella-simple-fill.svg" %}" alt="">
+            <p>18°/31°</p>
         </div>
     </div>
 </body>
