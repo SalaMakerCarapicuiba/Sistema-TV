@@ -1,14 +1,20 @@
+
+
 .left-column {
     width: 65%;
 }
 
 .left-column .left-window {
     height: 70%;
+    background-color: white;
+}
+
+.left-window video {
+    object-fit: cover;
 }
 
 .left-column .description {
     height: 30%;
-    background-color: #032376;
 }
 
 .left-footer {
@@ -80,7 +86,6 @@
 
 .right-column {
     width: 32%;
-    background-color: #032376;
 }
 
 .right-column .right-window {

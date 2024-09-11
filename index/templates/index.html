@@ -5,14 +5,44 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Horário de Aulas</title>
-    <link rel="stylesheet" href="{% static "css/index.css" %}">
-    <link rel="stylesheet" href="{% static "css/global.css" %}">
+    <link rel="stylesheet" href="{% static 'css/index.css' %}">
+    <link rel="stylesheet" href="{% static 'css/global.css' %}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script type="text/javascript">
+        function fetchWeatherData() {
+            $.ajax({
+                url: "{% url 'home' %}",  // URL da sua view Django que retorna os dados da API
+                method: "GET",
+                success: function(data) {
+                    if (data.error) {
+                        console.error(data.error);
+                    } else {
+                        // Atualiza os campos de temperatura
+                        $('#today-temp').html(`${data.temp_min}°/${data.temp_max}°`);
+                        $('#tomorrow-temp').html(`${data.temp_min}°/${data.temp_max}°`);
+                    }
+                },
+                error: function() {
+                    console.error("Erro ao obter dados da API.");
+                }
+            });
+        }
+
+        // Faz a requisição a cada 30 segundos
+        setInterval(fetchWeatherData, 30000);
+
+        // Faz a primeira chamada quando a página carrega
+        $(document).ready(function() {
+            fetchWeatherData();
+        });
+    </script>
 </head>
-<body class="flex space-between">
+<body class="flex space-between" style="background-image: url({% static 'src/banners/background.png' %});">
     <div class="left-column">
 
         <div class="left-window">
-            <h1>Teste</h1>
+            <video width="100%" height="100%" controls autoplay src="{% static 'animation/Carregamento.mp4' %}"></video>
         </div>
 
         <div class="description flex column">
@@ -23,21 +53,15 @@
             </div>
 
             <div class="left-footer footer flex center vcenter">
-
                 <div class="footer-left-text flex center vcenter">
-                    <p>00/00/2000</p>
+                    <p>Hoje</p>
+                    <img src="{% static 'src/icons/sun-fill.svg' %}" alt="">
+                    <p id="today-temp">Carregando...</p> <!-- Aqui vai ser atualizado via JS -->
                 </div>
 
                 <div class="footer-left-text flex center vcenter">
                     <p>00:00</p>
                 </div>
-
-                <div class="footer-left-text flex center vcenter">
-                    <p>Hoje</p>
-                    <img src="{% static "src/icons/sun-fill.svg" %}" alt="">
-                    <p>{{ temp_min }}°/{{ temp_max }}°</p>
-                </div>
-
             </div>
 
         </div>
@@ -69,12 +93,12 @@
             <p>is simply dummy text of the printing and typesetting industry. Just ignore it</p>
         </div>
 
-        <img class="fatec-banner" src="{% static "src/banners/FatecCarapicuiba_Marca_Branca_Cor_SombraLateral.png" %}" alt="">
+        <img class="fatec-banner" src="{% static 'src/banners/FatecCarapicuiba_Marca_Branca_Cor_SombraLateral.png' %}" alt="">
 
         <div class="footer flex center vcenter">
             <p>Amanhã</p>
-            <img src="{% static "src/icons/umbrella-simple-fill.svg" %}" alt="">
-            <p>{{ temp_min }}°/{{ temp_max }}°</p>
+            <img src="{% static 'src/icons/umbrella-simple-fill.svg' %}" alt="">
+            <p id="tomorrow-temp">Carregando...</p> <!-- Aqui também vai ser atualizado via JS -->
         </div>
     </div>
 </body>
