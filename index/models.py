@@ -1,6 +1,7 @@
 import uuid
-from .utils import CustomerTypes
+from .utils  import CustomerTypes
 from django.db import models
+
 
 # Create your models here.
 class User(models.Model):
@@ -29,3 +30,6 @@ class Notices(models.Model):
     local = models.CharField(max_length=100)
     responsible = models.CharField(max_length=100)
     name = models.CharField(max_length=100)
+
+    def __str__(self):
+        return f'{self.name}'
