@@ -51,11 +51,11 @@
 
             <div class="left-footer footer flex center vcenter">
                 <div class="footer-left-text flex center vcenter">
-                    00/00/2000
+                    {{ data }}
                 </div>
 
                 <div class="footer-left-text flex center vcenter">
-                    <p>00:00</p>
+                    <p>{{ agora.time}}</p>
                 </div>
 
                 <div class="footer-left-text flex center vcenter">
@@ -85,12 +85,17 @@
             </div>
         </div>
 
-        {% for notice in notices %}
             <div class="textbox flex column">
-                <h1>{{ notice.subject }}</h1>
-                <p>{{ notice.content }}</p>
+                {% with notice_index=0 %}
+                    {% for notice in notices %}
+                        {% if forloop.counter0 == notice_index %}
+                            <h1>{{ notice.subject }}</h1>
+                            <p>{{ notice.content }}</p>
+                        {% endif %}
+                    {% endfor %}
+                {% endwith %}
+
             </div>
-        {% endfor %}
 
         <img class="fatec-banner" src="{% static 'src/banners/FatecCarapicuiba_Marca_Branca_Cor_SombraLateral.png' %}" alt="">
 

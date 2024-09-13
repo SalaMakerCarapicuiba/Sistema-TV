@@ -2,6 +2,7 @@ import requests
 from django.shortcuts import render
 from django.http import JsonResponse
 from .models import User, Notices
+import datetime
 
 def home(request):
     api_key = '98e4910ec3fd6f86dfbfd39f589051bd'
@@ -26,6 +27,9 @@ def home(request):
         # Para a primeira renderização da página, retornamos os usuários e notificações também
         users = User.objects.all()
         notices = Notices.objects.all()
+        agora = datetime.datetime.now()
+        data_em_texto = '{}/{}/{}'.format(agora.day, agora.month, agora.year)
+
 
         context = {
             'city': city,
@@ -34,7 +38,9 @@ def home(request):
             'temp_min': round(weather_data['main']['temp_min']),
             'temp_max': round(weather_data['main']['temp_max']),
             'users': users,
-            'notices': notices
+            'notices': notices,
+            'agora': agora,
+            'data': data_em_texto
         }
 
         return render(request, "index.html", context)
