@@ -85,10 +85,12 @@
             </div>
         </div>
 
-        <div class="textbox flex column">
-            <h1>Titulo Verdana 24pt</h1>
-            <p>is simply dummy text of the printing and typesetting industry. Just ignore it</p>
-        </div>
+        {% for notice in notices %}
+            <div class="textbox flex column">
+                <h1>{{ notice.subject }}</h1>
+                <p>{{ notice.content }}</p>
+            </div>
+        {% endfor %}
 
         <img class="fatec-banner" src="{% static 'src/banners/FatecCarapicuiba_Marca_Branca_Cor_SombraLateral.png' %}" alt="">
 
@@ -96,32 +98,6 @@
             <p>Amanhã</p>
             <img src="{% static 'src/icons/umbrella-simple-fill.svg' %}" alt="">
             <p id="tomorrow-temp">Carregando...</p> <!-- Aqui também vai ser atualizado via JS -->
-        </div>
-    </div>
-
-    <div class="user-notices flex column center">
-        <h2>Usuários</h2>
-        <ul>
-            {% for user in users %}
-                <li>{{ user.full_name }} ({{ user.email }})</li>
-            {% empty %}
-                <li>Nenhum usuário encontrado.</li>
-            {% endfor %}
-        </ul>
-        
-        <h2>Notificações</h2>
-        <div>
-            {% for notice in notices %}
-                <div class="notice-item">
-                    <h4>{{ notice.subject }}</h4>
-                    <p>{{ notice.content }}</p>
-                    <p><strong>Responsável:</strong> {{ notice.responsible }}</p>
-                    <p><strong>Data de Início:</strong> {{ notice.start_date }} {{ notice.start_time }}</p>
-                    <p><strong>Data de Fim:</strong> {{ notice.end_date }} {{ notice.end_time }}</p>
-                </div>
-            {% empty %}
-                <p>Nenhuma notificação encontrada.</p>
-            {% endfor %}
         </div>
     </div>
 </body>
