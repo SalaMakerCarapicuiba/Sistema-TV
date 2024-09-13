@@ -1,6 +1,7 @@
 import requests
 from django.shortcuts import render
 from django.http import JsonResponse
+from .models import User, Notices
 
 def home(request):
     api_key = '98e4910ec3fd6f86dfbfd39f589051bd'
@@ -13,6 +14,10 @@ def home(request):
         response.raise_for_status()  # Verifica se a resposta foi bem-sucedida
         weather_data = response.json()
 
+        # Consulta todos os usuários e notificações
+        users = User.objects.all()
+        notices = Notices.objects.all()
+
         # Dados do clima processados
         context = {
             'city': city,
@@ -20,6 +25,8 @@ def home(request):
             'description': weather_data['weather'][0]['description'],
             'temp_min': round(weather_data['main']['temp_min']),
             'temp_max': round(weather_data['main']['temp_max']),
+            'users': users,  # Adiciona dados dos usuários ao contexto
+            'notices': notices  # Adiciona dados das notificações ao contexto
         }
 
         # Verifica se a requisição foi feita via AJAX
@@ -40,4 +47,3 @@ def home(request):
         if request.headers.get('x-requested-with') == 'XMLHttpRequest':
             return JsonResponse({'error': 'Erro ao processar os dados da API'}, status=500)
         return render(request, "index.html", {'error': 'Erro ao processar os dados da API'})
-    
