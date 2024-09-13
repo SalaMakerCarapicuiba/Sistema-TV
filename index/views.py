@@ -14,22 +14,25 @@ def home(request):
         response.raise_for_status()
         weather_data = response.json()
 
+        # Obtendo a data e hora atual
+        agora = datetime.datetime.now()
+        data_em_texto = '{}/{}/{}'.format(agora.day, agora.month, agora.year)
+
         if request.headers.get('x-requested-with') == 'XMLHttpRequest':
-            # Para requisições AJAX, só retornamos os dados do clima
+            # Para requisições AJAX, retornamos também a data e hora
             return JsonResponse({
                 'city': city,
                 'temperature': weather_data['main']['temp'],
                 'description': weather_data['weather'][0]['description'],
                 'temp_min': round(weather_data['main']['temp_min']),
                 'temp_max': round(weather_data['main']['temp_max']),
+                'agora': agora,  # Inclui o horário atual formatado
+                'data_em_texto': data_em_texto  # Data formatada para exibição
             })
 
         # Para a primeira renderização da página, retornamos os usuários e notificações também
         users = User.objects.all()
         notices = Notices.objects.all()
-        agora = datetime.datetime.now()
-        data_em_texto = '{}/{}/{}'.format(agora.day, agora.month, agora.year)
-
 
         context = {
             'city': city,

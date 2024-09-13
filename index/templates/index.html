@@ -17,9 +17,17 @@
                     if (data.error) {
                         console.error(data.error);
                     } else {
+                        // Verifica no console o retorno da API
+                        console.log("Dados retornados: ", data);
+
                         // Atualiza os campos de temperatura
                         $('#today-temp').html(`${data.temp_min}°/${data.temp_max}°`);
                         $('#tomorrow-temp').html(`${data.temp_min}°/${data.temp_max}°`);
+
+                        let horaMinutos = new Date(data.agora).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+                        // Atualiza o campo de hora
+                        $('#time').html(horaMinutos);
                     }
                 },
                 error: function() {
@@ -28,12 +36,9 @@
             });
         }
 
-        // Faz a requisição a cada 30 segundos
-        setInterval(fetchWeatherData, 30000);
-
-        // Faz a primeira chamada quando a página carrega
         $(document).ready(function() {
-            fetchWeatherData();
+            fetchWeatherData();  // Faz a primeira chamada quando a página carrega
+            setInterval(fetchWeatherData, 1000);  // Atualiza a cada 30 segundos
         });
     </script>
 </head>
@@ -55,7 +60,7 @@
                 </div>
 
                 <div class="footer-left-text flex center vcenter">
-                    <p>{{ agora.time}}</p>
+                    <p id="time">Carregando...</p>
                 </div>
 
                 <div class="footer-left-text flex center vcenter">
