@@ -8,7 +8,13 @@ class UserAdmin(admin.ModelAdmin):
 
 
 class NoticesAdmin(admin.ModelAdmin):
-    pass
+    def imagem_notices(self, obj):
+        if obj.imagem:
+            return obj.imagem.url_for
+        return "(Nenhuma imagem)"
+    
+    imagem_notices.short_description = 'Imagem'
+    imagem_notices.allow_tags = True
 
 admin.site.register(User, UserAdmin)
 admin.site.register(Notices, NoticesAdmin)
