@@ -129,6 +129,11 @@
     background-color: white;
 }
 
+.small-window img {
+    width: 100%;
+    height: 100%;
+}
+
 .right-column .textbox {
     align-self: center;
     background-color: #FFA500;

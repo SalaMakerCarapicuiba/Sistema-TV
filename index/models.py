@@ -32,7 +32,7 @@ class Notices(models.Model):
     local = models.CharField(max_length=100)
     responsible = models.CharField(max_length=100)
     name = models.CharField(max_length=100)
-    imagem = models.ImageField(upload_to='images/', null=True, blank=True)
+    imagem = models.ImageField(upload_to='imgNoticias/', null=True, blank=True)
 
     def __str__(self):
         return f'{self.name}'

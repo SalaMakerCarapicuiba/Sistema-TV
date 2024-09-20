@@ -111,9 +111,13 @@
           <div class="small-window">
             {% with notice_index=2 %} 
               {% for notice in notices %} 
-                {% if forloop.counter0 == notice_index %}
-                  <img src="{{notice.imagem}}" alt="{{notice.subject}}" />
-                {% endif %} 
+                  {% if forloop.counter0 == notice_index %}
+                      {% if notice.imagem %}
+                          <img src="{{ notice.imagem.url }}" alt="{{ notice.subject }}">
+                      {% else %}
+                          <p>Sem imagem disponível</p>
+                      {% endif %}
+                  {% endif %} 
               {% endfor %} 
             {% endwith %}  
           </div>
