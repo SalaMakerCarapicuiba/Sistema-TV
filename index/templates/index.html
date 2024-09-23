@@ -10,7 +10,7 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script type="text/javascript">
       let noticeIndex = 0;  // Começa na primeira notícia
-    
+
       function fetchWeatherData() {
         $.ajax({
           url: "{% url 'home' %}",
@@ -38,7 +38,7 @@
           },
         });
       }
-    
+
       function fetchNoticeData() {
         $.ajax({
           url: "{% url 'home' %}",
@@ -57,11 +57,11 @@
                 $(".small-window img").remove();
                 $(".small-window").html("<p>Sem imagem disponível</p>");
               }
-    
+
               // Atualiza o título e o conteúdo da notícia
               $(".textbox h1").html(data.notice_title);
               $(".textbox p").html(data.notice_content);
-    
+
               // Incrementa o índice da notícia para a próxima requisição
               noticeIndex = (noticeIndex + 1) % data.total_notices;  // Cicla entre todas as notícias
             }
@@ -71,16 +71,16 @@
           },
         });
       }
-    
+
       $(document).ready(function () {
         fetchWeatherData();  // Carrega os dados do clima ao carregar a página
         setInterval(fetchWeatherData, 30000);  // Atualiza o clima a cada 30 segundos
-    
+
         fetchNoticeData();  // Carrega a primeira notícia ao carregar a página
         setInterval(fetchNoticeData, 30000);  // Atualiza as notícias a cada 30 segundos
       });
     </script>
-    
+
   </head>
 
   <body
@@ -140,21 +140,17 @@
           <div class="small-window">
             <img src="{% if notices %}{{ notices.0.imagem.url }}{% endif %}" alt="{% if notices %}{{ notices.0.subject }}{% endif %}">
           </div>
-          <div class="textbox flex column">
-            <h1>{% if notices %}{{ notices.0.subject }}{% endif %}</h1>
-            <p>{% if notices %}{{ notices.0.content }}{% endif %}</p>
-          </div>
         </div>
       </div>
 
       <div class="textbox flex column">
-        {% with notice_index=2 %} 
-          {% for notice in notices %} 
+        {% with notice_index=2 %}
+          {% for notice in notices %}
             {% if forloop.counter0 == notice_index %}
               <h1>{{ notice.subject }}</h1>
-              <p>{{ notice.content }}</p>     
-            {% endif %} 
-          {% endfor %} 
+              <p>{{ notice.content }}</p>
+            {% endif %}
+          {% endfor %}
         {% endwith %}
       </div>
 
