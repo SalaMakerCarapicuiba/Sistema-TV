@@ -9,35 +9,27 @@
     <link rel="stylesheet" href="{% static 'css/global.css' %}" />
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script type="text/javascript">
+      let noticeIndex = 0;  // Começa na primeira notícia
+    
       function fetchWeatherData() {
         $.ajax({
-          url: "{% url 'home' %}", // URL da sua view Django que retorna os dados da API
+          url: "{% url 'home' %}",
           method: "GET",
           success: function (data) {
             if (data.error) {
               console.error(data.error);
             } else {
-              // Verifica no console o retorno da API
-              console.log("Dados retornados: ", data);
-
-              // Atualiza os campos de temperatura do dia atual
+              // Atualiza o clima
               $("#today-temp").html(`${data.temp_min}°/${data.temp_max}°`);
-
-              // Atualiza os campos de temperatura do dia seguinte
               if (data.temp_min_tomorrow && data.temp_max_tomorrow) {
-                $("#tomorrow-temp").html(
-                  `${data.temp_min_tomorrow}°/${data.temp_max_tomorrow}°`
-                );
+                $("#tomorrow-temp").html(`${data.temp_min_tomorrow}°/${data.temp_max_tomorrow}°`);
               } else {
                 $("#tomorrow-temp").html("Dados indisponíveis");
               }
-
               let horaMinutos = new Date(data.agora).toLocaleTimeString([], {
                 hour: "2-digit",
                 minute: "2-digit",
               });
-
-              // Atualiza o campo de hora
               $("#time").html(horaMinutos);
             }
           },
@@ -46,12 +38,49 @@
           },
         });
       }
-
+    
+      function fetchNoticeData() {
+        $.ajax({
+          url: "{% url 'home' %}",
+          method: "GET",
+          data: {
+            notice_index: noticeIndex,  // Envia o índice da notícia atual para o servidor
+          },
+          success: function (data) {
+            if (data.error) {
+              console.error(data.error);
+            } else {
+              // Atualiza a pequena janela com a nova notícia
+              if (data.notice_image) {
+                $(".small-window img").attr("src", data.notice_image);
+              } else {
+                $(".small-window img").remove();
+                $(".small-window").html("<p>Sem imagem disponível</p>");
+              }
+    
+              // Atualiza o título e o conteúdo da notícia
+              $(".textbox h1").html(data.notice_title);
+              $(".textbox p").html(data.notice_content);
+    
+              // Incrementa o índice da notícia para a próxima requisição
+              noticeIndex = (noticeIndex + 1) % data.total_notices;  // Cicla entre todas as notícias
+            }
+          },
+          error: function () {
+            console.error("Erro ao obter os dados das notícias.");
+          },
+        });
+      }
+    
       $(document).ready(function () {
-        fetchWeatherData(); // Faz a primeira chamada quando a página carrega
-        setInterval(fetchWeatherData, 30000); // Atualiza a cada 30 segundos
+        fetchWeatherData();  // Carrega os dados do clima ao carregar a página
+        setInterval(fetchWeatherData, 30000);  // Atualiza o clima a cada 30 segundos
+    
+        fetchNoticeData();  // Carrega a primeira notícia ao carregar a página
+        setInterval(fetchNoticeData, 30000);  // Atualiza as notícias a cada 30 segundos
       });
     </script>
+    
   </head>
 
   <body
@@ -109,17 +138,11 @@
           <div class="background-org"></div>
           <div class="background-ylw"></div>
           <div class="small-window">
-            {% with notice_index=2 %} 
-              {% for notice in notices %} 
-                  {% if forloop.counter0 == notice_index %}
-                      {% if notice.imagem %}
-                          <img src="{{ notice.imagem.url }}" alt="{{ notice.subject }}">
-                      {% else %}
-                          <p>Sem imagem disponível</p>
-                      {% endif %}
-                  {% endif %} 
-              {% endfor %} 
-            {% endwith %}  
+            <img src="{% if notices %}{{ notices.0.imagem.url }}{% endif %}" alt="{% if notices %}{{ notices.0.subject }}{% endif %}">
+          </div>
+          <div class="textbox flex column">
+            <h1>{% if notices %}{{ notices.0.subject }}{% endif %}</h1>
+            <p>{% if notices %}{{ notices.0.content }}{% endif %}</p>
           </div>
         </div>
       </div>
