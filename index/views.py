@@ -17,7 +17,9 @@ def home(request):
         response_forecast.raise_for_status()
         forecast_data = response_forecast.json()
 
+        # Clima atual
         current_weather = forecast_data['list'][0]
+        current_description = current_weather['weather'][0]['description']
 
         # Clima de amanhã
         tomorrow_date = (datetime.datetime.now() + datetime.timedelta(days=1)).strftime('%Y-%m-%d')
@@ -48,8 +50,10 @@ def home(request):
                 'total_notices': total_notices,
                 'temp_min': round(current_weather['main']['temp_min']),
                 'temp_max': round(current_weather['main']['temp_max']),
+                'description': current_description,  
                 'temp_min_tomorrow': round(forecast_tomorrow['main']['temp_min']) if forecast_tomorrow else None,
                 'temp_max_tomorrow': round(forecast_tomorrow['main']['temp_max']) if forecast_tomorrow else None,
+                'description_tomorrow': forecast_tomorrow['weather'][0]['description'] if forecast_tomorrow else None,
                 'agora': agora,
             })
 
@@ -57,11 +61,12 @@ def home(request):
         context = {
             'city': city,
             'temperature': current_weather['main']['temp'],
-            'description': current_weather['weather'][0]['description'],
+            'description': current_description,  
             'temp_min': round(current_weather['main']['temp_min']),
             'temp_max': round(current_weather['main']['temp_max']),
             'temp_min_tomorrow': round(forecast_tomorrow['main']['temp_min']) if forecast_tomorrow else None,
             'temp_max_tomorrow': round(forecast_tomorrow['main']['temp_max']) if forecast_tomorrow else None,
+            'description_tomorrow': forecast_tomorrow['weather'][0]['description'] if forecast_tomorrow else None,
             'users': User.objects.all(),
             'notices': notices,
             'agora': agora,
