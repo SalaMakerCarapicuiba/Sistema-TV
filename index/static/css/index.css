@@ -1,4 +1,6 @@
-
+body {
+    background-size: cover;
+}
 
 .left-column {
     width: 65%;
@@ -177,13 +179,13 @@
 }
 
 .textbox.flex.column.right {
-    max-width: 100%; 
-    background-color: #FFA500; 
+    max-width: 100%;
+    background-color: #FFA500;
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-    color: #000; 
-    word-wrap: break-word; 
+    color: #000;
+    word-wrap: break-word;
 }
 
 
@@ -191,23 +193,23 @@
     font-size: 24px;
     margin-bottom: 10px;
     text-align: center;
-    max-width: 90%; 
-    overflow-wrap: break-word; 
-    word-wrap: break-word; 
-    white-space: normal; 
-    line-height: 1.2; 
+    max-width: 90%;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    white-space: normal;
+    line-height: 1.2;
     margin-left: auto;
-    margin-right: auto; 
+    margin-right: auto;
 }
 
 .textbox.flex.column.right p {
     font-size: 18px;
     line-height: 1.5;
     text-align: center;
-    max-width: 90%; 
-    overflow-wrap: break-word; 
+    max-width: 90%;
+    overflow-wrap: break-word;
     word-wrap: break-word;
     white-space: normal;
     margin-left: auto;
-    margin-right: auto; 
+    margin-right: auto;
 }
