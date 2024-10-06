@@ -8,6 +8,9 @@
   <title>Horário de Aulas</title>
   <link rel="stylesheet" href="{% static 'css/index.css' %}" />
   <link rel="stylesheet" href="{% static 'css/global.css' %}" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script type="text/javascript">
     let noticeIndex = 0;
@@ -112,6 +115,7 @@
 
             // Atualiza o título e o conteúdo da notícia
             $(".textbox h1").html(data.notice_title);
+            $(".textbox h3").html(data.notice_category);
             $(".textbox p").html(data.notice_content);
 
             // Incrementa o índice da notícia para a próxima requisição
@@ -137,17 +141,87 @@
 <body class="flex space-between" style="background-image: url({% static 'src/banners/background.png' %})">
   <div class="left-column">
     <div class="left-window">
-      <video width="100%" height="100%" controls autoplay src="{% static 'animation/Carregamento.mp4' %}"></video>
+      <!-- <video width="100%" height="100%" controls autoplay src="{% static 'animation/Carregamento.mp4' %}"></video> -->
+      <div class="horario">
+        <div class="horario-header flex">
+          <img src="{% static "src/icons/desktop.svg" %}" alt="">
+          <h2>Análise e Desenvolvimento de Sistemas (ADS)</h2>
+        </div>
+
+         <div class="horario-table flex">
+            <div class="semesters flex">
+              <h2>1° Semestre</h2>
+              <h2>2° Semestre</h2>
+              <h2>3° Semestre</h2>
+              <h2>4° Semestre</h2>
+              <h2>5° Semestre</h2>
+              <h2>6° Semestre</h2>
+            </div>
+
+            <div class="hours">
+              <div class="hour-line">
+                <div id ="divisor-line"></div>
+                <div id="timeline">
+
+                </div>
+                <div class="hour-list flex">
+                  <p>7:30</p>
+                  <p>9:30</p>
+                  <p>11:30</p>
+                  <p>13:00</p>
+                </div>
+              </div>
+              <div class="class-line">
+                <div class="classes flex">
+
+                  <div class="class-line">
+                    <div class="class">
+                      <p>Mario Marques - Sala 101</p>
+                    </div>
+                  </div>
+
+                  <div class="class-line">
+                    <div class="class">
+                      <p>Mario Marques - Sala 101</p>
+                    </div>
+                  </div>
+
+                  <div class="class-line">
+                    <div class="class">
+                      <hp3>Mario Marques - Sala 101</h3>
+                    </div>
+                  </div>
+
+                  <div class="class-line">
+                    <div class="class">
+                      <p>Mario Marques - Sala 101</p>
+                    </div>
+                  </div>
+
+                  <div class="class-line">
+                    <div class="class">
+                      <p>Mario Marques - Sala 101</p>
+                    </div>
+                  </div>
+
+                  <div class="class-line">
+                    <div class="class">
+                      <p>Mario Marques - Sala 101</p>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+
+         </div>
+      </div>
     </div>
 
     <div class="description flex column">
       <div class="textbox flex column">
-        <h3>Titulo auxiliar 18pt</h3>
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent
-          semper iaculis vulputate. Cras vel enim aliquet, commodo velit eu,
-          commodo diam. Integer placerat eget enim quis faucibus. Cras vel en
-        </p>
+            <h3>{{ notice.category }}</h3>
+            <p>{{ notice.content }}</p>
       </div>
 
       <div class="left-footer footer flex center vcenter">
@@ -186,7 +260,7 @@
     </div>
 
     <div class="textbox flex column right">
-      {% with notice_index=2 %}
+      {% with notice_index=0 %}
       {% for notice in notices %}
       {% if forloop.counter0 == notice_index %}
       <h1>{{ notice.subject }}</h1>

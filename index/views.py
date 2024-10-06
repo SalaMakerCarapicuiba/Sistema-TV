@@ -7,10 +7,10 @@ import datetime
 def home(request):
     api_key = '98e4910ec3fd6f86dfbfd39f589051bd'
     city = 'Carapicuíba'
-    
+
     # URL da previsão do tempo
     url_forecast = f'http://api.openweathermap.org/data/2.5/forecast?q={city}&appid={api_key}&units=metric&lang=pt_br'
-    
+
     try:
         # Obtendo os dados da previsão para os próximos dias
         response_forecast = requests.get(url_forecast)
@@ -47,10 +47,11 @@ def home(request):
                 'notice_image': current_notice.imagem.url if current_notice.imagem else None,
                 'notice_title': current_notice.subject,
                 'notice_content': current_notice.content,
+                'notice_category': current_notice.category,
                 'total_notices': total_notices,
                 'temp_min': round(current_weather['main']['temp_min']),
                 'temp_max': round(current_weather['main']['temp_max']),
-                'description': current_description,  
+                'description': current_description,
                 'temp_min_tomorrow': round(forecast_tomorrow['main']['temp_min']) if forecast_tomorrow else None,
                 'temp_max_tomorrow': round(forecast_tomorrow['main']['temp_max']) if forecast_tomorrow else None,
                 'description_tomorrow': forecast_tomorrow['weather'][0]['description'] if forecast_tomorrow else None,
@@ -61,7 +62,7 @@ def home(request):
         context = {
             'city': city,
             'temperature': current_weather['main']['temp'],
-            'description': current_description,  
+            'description': current_description,
             'temp_min': round(current_weather['main']['temp_min']),
             'temp_max': round(current_weather['main']['temp_max']),
             'temp_min_tomorrow': round(forecast_tomorrow['main']['temp_min']) if forecast_tomorrow else None,

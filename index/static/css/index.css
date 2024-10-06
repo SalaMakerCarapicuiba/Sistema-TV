@@ -15,6 +15,93 @@ body {
     object-fit: cover;
 }
 
+/* HORÁRIO */
+
+.horario {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    height: 90%;
+}
+
+.horario > *, .semesters > *, .hours > *, .hour-list > *, .class > * {
+    font-family: 'Rubik', sans-serif;
+}
+
+.horario-header {
+    gap: 5rem;
+}
+
+.horario-header img {
+    padding-left: 5%;
+}
+
+.horario-header > h2 {
+    margin-top: 2rem;
+    text-align: center;
+    font-family: 'Rubik', sans-serif;
+}
+
+.horario-table {
+    gap: 2rem;
+    justify-content: center;
+    height: 100%;
+}
+
+.horario-table .semesters{
+    flex-direction: column;
+    gap: 2rem;
+    height: 100%;
+    justify-content: end;
+}
+
+.semesters h2 {
+    font-weight: normal;
+}
+
+.hours {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 75%;
+}
+
+#timeline {
+    position: absolute;
+    height: 49.5%;
+    background-color: #FFA500;
+    width: 3px;
+    margin-left: 1%;
+}
+
+.hours .hour-line #divisor-line{
+    width: 100%;
+    height: 2px;
+    background-color: black;
+}
+
+.hours .hour-list {
+    justify-content: space-between;
+}
+
+.classes {
+    flex-direction: column;
+    gap: 1.85rem;
+}
+
+.class {
+    height: 1.9rem;
+    display: flex;
+    align-items: center;
+    /* background-color: #E36B53; */
+    background-color: #327EAA;
+    border-radius: 5px;
+    padding: 0 5px;
+    width: 210px;
+    justify-content: center;
+    color: white;
+}
+
 .left-column .description {
     height: 30%;
 }
