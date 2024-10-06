@@ -1,3 +1,13 @@
+:root {
+    --q1: 1%;
+    --q2: 17%;
+    --q3: 33%;
+    --q4: 49%;
+    --q5: 65%;
+    --q6: 81%;
+    --q7: 97%;
+}
+
 body {
     background-size: cover;
 }
@@ -64,14 +74,15 @@ body {
     flex-direction: column;
     justify-content: space-between;
     width: 75%;
+    position: relative;
 }
 
 #timeline {
     position: absolute;
-    height: 49.5%;
+    height: 100%;
     background-color: #FFA500;
     width: 3px;
-    margin-left: 1%;
+    margin-left: var(--q1);
 }
 
 .hours .hour-line #divisor-line{

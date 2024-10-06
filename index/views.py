@@ -56,6 +56,7 @@ def home(request):
                 'temp_max_tomorrow': round(forecast_tomorrow['main']['temp_max']) if forecast_tomorrow else None,
                 'description_tomorrow': forecast_tomorrow['weather'][0]['description'] if forecast_tomorrow else None,
                 'agora': agora,
+                'hora_atual': agora.hour
             })
 
         # Renderização inicial da página completa
@@ -71,7 +72,8 @@ def home(request):
             'users': User.objects.all(),
             'notices': notices,
             'agora': agora,
-            'data': data_em_texto
+            'data': data_em_texto,
+            'hora_atual': agora.hour
         }
 
         return render(request, "index.html", context)

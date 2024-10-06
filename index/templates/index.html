@@ -26,116 +26,115 @@
       'garoa': 'umbrella-simple-fill.svg',
     };
 
-    function getWeatherIcon(description) {
-      // Verifica se description é uma string válida
-      if (typeof description !== "string" || description.trim() === "") {
-        console.warn("Descrição inválida para o ícone do clima:", description);
-        return `{% static 'src/icons/sun-fill.svg' %}`;  // Ícone padrão em caso de erro
-      }
-
-      const icon = weatherIconMap[description.toLowerCase()] || 'sun-fill.svg';
-      return `{% static 'src/icons/' %}${icon}`;
+    function getWeatherIcon(description = '') {
+      // Retorna o ícone correspondente ou o ícone padrão se não encontrar
+      return `{% static 'src/icons/' %}${weatherIconMap[description.toLowerCase()] || 'sun-fill.svg'}`;
     }
 
+    function updateWeatherDisplay(data) {
+      $("#today-temp").html(`${data.temp_min}°/${data.temp_max}°`);
+      $("#today-icon").attr("src", getWeatherIcon(data.description));
+
+      if (data.temp_min_tomorrow && data.temp_max_tomorrow) {
+        $("#tomorrow-temp").html(`${data.temp_min_tomorrow}°/${data.temp_max_tomorrow}°`);
+        $("#tomorrow-icon").attr("src", getWeatherIcon(data.description_tomorrow));
+      } else {
+        $("#tomorrow-temp").html("Dados indisponíveis");
+      }
+
+      if (data.agora) {
+        const horaMinutos = new Date(data.agora).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+        $("#time").html(horaMinutos);
+      } else {
+        $("#time").html("Horário indisponível");
+      }
+    }
 
     function fetchWeatherData() {
-      $.ajax({
-        url: "{% url 'home' %}",
-        method: "GET",
-        success: function (data) {
-          console.log('Dados recebidos:', data); // Verifique o retorno da API
-
-          if (data.error) {
-            console.error(data.error);
-          } else {
-            // Atualiza a temperatura e o ícone de hoje
-            $("#today-temp").html(`${data.temp_min}°/${data.temp_max}°`);
-
-            // Verifica se a descrição do clima de hoje está disponível
-            if (data.description) {
-              $("#today-icon").attr("src", getWeatherIcon(data.description));
-            } else {
-              console.warn('Descrição do clima de hoje ausente');
-              $("#today-icon").attr("src", getWeatherIcon(''));
-            }
-
-            // Atualiza a temperatura e o ícone de amanhã, se disponíveis
-            if (data.temp_min_tomorrow && data.temp_max_tomorrow) {
-              $("#tomorrow-temp").html(`${data.temp_min_tomorrow}°/${data.temp_max_tomorrow}°`);
-
-              // Verifica se a descrição do clima de amanhã está disponível
-              if (data.description_tomorrow) {
-                $("#tomorrow-icon").attr("src", getWeatherIcon(data.description_tomorrow));
-              } else {
-                console.warn('Descrição do clima de amanhã ausente');
-                $("#tomorrow-icon").attr("src", getWeatherIcon(''));
-              }
-            } else {
-              $("#tomorrow-temp").html("Dados indisponíveis");
-              console.warn('Dados de amanhã não disponíveis ou incompletos:', data);
-            }
-
-            // Atualiza o horário
-            if (data.agora) {
-              let horaMinutos = new Date(data.agora).toLocaleTimeString([], {
-                hour: "2-digit",
-                minute: "2-digit",
-              });
-              $("#time").html(horaMinutos);
-            } else {
-              $("#time").html("Horário indisponível");
-              console.warn('Dados de horário não disponíveis:', data);
-            }
-          }
-        },
-        error: function (xhr, status, error) {
-          console.error("Erro ao obter dados da API:", status, error);
-        },
+      $.get("{% url 'home' %}", function (data) {
+        if (data.error) {
+          console.error(data.error);
+        } else {
+          updateWeatherDisplay(data);
+        }
+      }).fail(function (xhr, status, error) {
+        console.error("Erro ao obter dados da API:", status, error);
       });
+    }
+
+    function updateNoticeDisplay(data) {
+      if (data.notice_image) {
+        $(".small-window img").attr("src", data.notice_image);
+      } else {
+        $(".small-window img").remove();
+        $(".small-window").html("<p>Sem imagem disponível</p>");
+      }
+
+      $(".textbox h1").html(data.notice_title);
+      $(".textbox h3").html(data.notice_category);
+      $(".textbox p").html(data.notice_content);
+      noticeIndex = (noticeIndex + 1) % data.total_notices;
     }
 
     function fetchNoticeData() {
-      $.ajax({
-        url: "{% url 'home' %}",
-        method: "GET",
-        data: {
-          notice_index: noticeIndex,
-        },
-        success: function (data) {
-          if (data.error) {
-            console.error(data.error);
-          } else {
-            // Atualiza a pequena janela com a nova notícia
-            if (data.notice_image) {
-              $(".small-window img").attr("src", data.notice_image);
-            } else {
-              $(".small-window img").remove();
-              $(".small-window").html("<p>Sem imagem disponível</p>");
-            }
-
-            // Atualiza o título e o conteúdo da notícia
-            $(".textbox h1").html(data.notice_title);
-            $(".textbox h3").html(data.notice_category);
-            $(".textbox p").html(data.notice_content);
-
-            // Incrementa o índice da notícia para a próxima requisição
-            noticeIndex = (noticeIndex + 1) % data.total_notices;
-          }
-        },
-        error: function () {
-          console.error("Erro ao obter os dados das notícias.");
-        },
+      $.get("{% url 'home' %}", { notice_index: noticeIndex }, function (data) {
+        if (data.error) {
+          console.error(data.error);
+        } else {
+          updateNoticeDisplay(data);
+        }
+      }).fail(function () {
+        console.error("Erro ao obter os dados das notícias.");
       });
     }
 
-    $(document).ready(function () {
-      fetchWeatherData();  // Carrega os dados do clima ao carregar a página
-      setInterval(fetchWeatherData, 30000);  // Atualiza o clima fa cada 30 segundos
+    function updateTimelinePosition() {
+      // Obter a hora atual
+      const now = new Date();
+      const currentHour = now.getHours();
 
-      fetchNoticeData();  // Carrega a primeira notícia ao carregar a página
-      setInterval(fetchNoticeData, 30000);  // Atualiza as notícias a cada 30 segundos
+      // Definir a variável de margem com base na hora atual
+      let marginLeftValue;
+
+      if (currentHour >= 7 && currentHour < 8) {
+        marginLeftValue = 'var(--q1)';
+      } else if (currentHour >= 8 && currentHour < 9) {
+        marginLeftValue = 'var(--q2)';
+      } else if (currentHour >= 9 && currentHour < 10) {
+        marginLeftValue = 'var(--q3)';
+      } else if (currentHour >= 10 && currentHour < 11) {
+        marginLeftValue = 'var(--q4)';
+      } else if (currentHour >= 11 && currentHour < 12) {
+        marginLeftValue = 'var(--q5)';
+      } else if (currentHour >= 12 && currentHour < 13) {
+        marginLeftValue = 'var(--q6)';
+      } else if (currentHour >= 13) {
+        marginLeftValue = 'var(--q7)';
+      } else {
+        // Fora do horário entre 7h e 13h
+        marginLeftValue = 'var(--q1)';  // Pode-se ajustar para o que faz mais sentido fora deste intervalo
+      }
+
+      // Atualizar o estilo do #timeline
+      document.getElementById('timeline').style.marginLeft = marginLeftValue;
+    }
+
+    $(document).ready(function () {
+      // Carregar e atualizar os dados do clima e das notícias
+      fetchWeatherData();
+      fetchNoticeData();
+
+      // Atualizar o clima e as notícias a cada 30 segundos
+      setInterval(fetchWeatherData, 30000);
+      setInterval(fetchNoticeData, 30000);
+
+      // Chamar a função para definir a posição inicial do timeline
+      updateTimelinePosition();
+      // Atualizar a posição do timeline a cada 10 minutos
+      setInterval(updateTimelinePosition, 10 * 60 * 1000);
     });
-  </script>
+</script>
+
 </head>
 
 <body class="flex space-between" style="background-image: url({% static 'src/banners/background.png' %})">
@@ -165,9 +164,9 @@
 
                 </div>
                 <div class="hour-list flex">
-                  <p>7:30</p>
-                  <p>9:30</p>
-                  <p>11:30</p>
+                  <p>7:00</p>
+                  <p>9:00</p>
+                  <p>11:00</p>
                   <p>13:00</p>
                 </div>
               </div>
@@ -275,7 +274,7 @@
 
     <div class="footer flex center vcenter">
       <p>Amanhã</p>
-      <img id="tomorrow-icon" src="{% static 'src/icons/umbrella-simple-fill.svg' %}" alt="" />
+      <img id="tomorrow-icon" src="{% static '' %}" alt="" />
       <p id="tomorrow-temp">Carregando...</p>
     </div>
   </div>
