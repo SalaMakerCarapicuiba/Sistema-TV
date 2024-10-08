@@ -92,7 +92,7 @@
       const startTime = new Date();
       startTime.setHours(13, 50, 0); // Início às 13:50
       const endTime = new Date();
-      endTime.setHours(17, 20, 0); // Fim às 17:20
+      endTime.setHours(20, 20, 0); // Fim às 20:20
       const totalDuration = endTime - startTime;
 
       // Função auxiliar para calcular a posição em percentual de um horário
@@ -108,15 +108,15 @@
       document.getElementById('hour2').style.left = getMarkerPosition(14, 30) + '%';
       document.getElementById('hour3').style.left = getMarkerPosition(15, 0) + '%';
       document.getElementById('hour4').style.left = getMarkerPosition(16, 10) + '%';
-      document.getElementById('hour5').style.left = getMarkerPosition(17, 20) + '%';
+      document.getElementById('hour5').style.left = getMarkerPosition(20, 20) + '%';
     }
 
 
     function updateTimelinePosition() {
       const startTime = new Date();
-      startTime.setHours(13, 50, 0); // Início às 7:00
+      startTime.setHours(13, 50, 0); // Início às 13:50
       const endTime = new Date();
-      endTime.setHours(17, 20, 0); // Fim às 13:00
+      endTime.setHours(20, 20, 0); // Fim às 20:20
       const currentTime = new Date();
 
       if (currentTime >= endTime) {
@@ -181,7 +181,7 @@
                   <p class="hour-marker" id="hour2">14:30</p>
                   <p class="hour-marker" id="hour3">15:00</p>
                   <p class="hour-marker" id="hour4">16:10</p>
-                  <p class="hour-marker" id="hour5">17:20</p>
+                  <p class="hour-marker" id="hour5">20:20</p>
                 </div>
               </div>
               <div class="class-line">
