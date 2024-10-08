@@ -16,5 +16,14 @@ class NoticesAdmin(admin.ModelAdmin):
     imagem_notices.short_description = 'Imagem'
     imagem_notices.allow_tags = True
 
+class MateriaAdmin(admin.ModelAdmin):
+    pass
+
+class HorarioAdmin(admin.ModelAdmin):
+    pass
+
+
 admin.site.register(User, UserAdmin)
 admin.site.register(Notices, NoticesAdmin)
+admin.site.register(Materia, MateriaAdmin)
+admin.site.register(Horario, HorarioAdmin)
