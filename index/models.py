@@ -36,7 +36,7 @@ class Notices(models.Model):
     responsible = models.CharField(max_length=20)
     name = models.CharField(max_length=30)
     imagem = models.ImageField(upload_to='imgNoticias/', null=True, blank=True)
-    
+
 class Materia(models.Model):
     DIAS_DA_SEMANA = [
         (2, 'Segunda-feira'),
@@ -47,16 +47,14 @@ class Materia(models.Model):
         (7, 'Sábado'),
     ]
 
-   
-
     nome = models.CharField(max_length=100)
     semestre = models.IntegerField(validators=[MaxValueValidator(12), MinValueValidator(1)])
     dia_da_semana = MultiSelectField(choices=DIAS_DA_SEMANA)
     professor = models.CharField(max_length=30)
     sala = models.CharField(max_length=5)
-    
+
     def __str__(self):
-        return f'{self.nome}' 
+        return f'{self.nome}'
 
 
 class Horario(models.Model):
@@ -70,4 +68,3 @@ class Horario(models.Model):
     horario_de_termino = models.TimeField(null=True)
     periodo = models.IntegerField(choices=PERIODO)
 
-    
