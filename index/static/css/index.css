@@ -82,7 +82,6 @@ body {
     height: 100%;
     background-color: #FFA500;
     width: 3px;
-    margin-left: var(--q1);
 }
 
 .hours .hour-line #divisor-line{
@@ -93,6 +92,11 @@ body {
 
 .hours .hour-list {
     justify-content: space-between;
+}
+
+.hour-marker {
+    position: absolute;
+    transform: translateX(-50%);
 }
 
 .classes {

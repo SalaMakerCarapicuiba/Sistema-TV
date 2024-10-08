@@ -88,35 +88,47 @@
       });
     }
 
-    function updateTimelinePosition() {
-      // Obter a hora atual
-      const now = new Date();
-      const currentHour = now.getHours();
+    function positionHourMarkers() {
+      const startTime = new Date();
+      startTime.setHours(13, 50, 0); // Início às 13:50
+      const endTime = new Date();
+      endTime.setHours(17, 20, 0); // Fim às 17:20
+      const totalDuration = endTime - startTime;
 
-      // Definir a variável de margem com base na hora atual
-      let marginLeftValue;
-
-      if (currentHour >= 7 && currentHour < 8) {
-        marginLeftValue = 'var(--q1)';
-      } else if (currentHour >= 8 && currentHour < 9) {
-        marginLeftValue = 'var(--q2)';
-      } else if (currentHour >= 9 && currentHour < 10) {
-        marginLeftValue = 'var(--q3)';
-      } else if (currentHour >= 10 && currentHour < 11) {
-        marginLeftValue = 'var(--q4)';
-      } else if (currentHour >= 11 && currentHour < 12) {
-        marginLeftValue = 'var(--q5)';
-      } else if (currentHour >= 12 && currentHour < 13) {
-        marginLeftValue = 'var(--q6)';
-      } else if (currentHour >= 13) {
-        marginLeftValue = 'var(--q7)';
-      } else {
-        // Fora do horário entre 7h e 13h
-        marginLeftValue = 'var(--q1)';  // Pode-se ajustar para o que faz mais sentido fora deste intervalo
+      // Função auxiliar para calcular a posição em percentual de um horário
+      function getMarkerPosition(hours, minutes) {
+          const markerTime = new Date();
+          markerTime.setHours(hours, minutes, 0);
+          const elapsedTime = markerTime - startTime;
+          return (elapsedTime / totalDuration) * 100;
       }
 
-      // Atualizar o estilo do #timeline
-      document.getElementById('timeline').style.marginLeft = marginLeftValue;
+      // Posiciona cada marcador de horário na barra de acordo com seu horário relativo
+      document.getElementById('hour1').style.left = getMarkerPosition(13, 50) + '%';
+      document.getElementById('hour2').style.left = getMarkerPosition(14, 30) + '%';
+      document.getElementById('hour3').style.left = getMarkerPosition(15, 0) + '%';
+      document.getElementById('hour4').style.left = getMarkerPosition(16, 10) + '%';
+      document.getElementById('hour5').style.left = getMarkerPosition(17, 20) + '%';
+    }
+
+
+    function updateTimelinePosition() {
+      const startTime = new Date();
+      startTime.setHours(13, 50, 0); // Início às 7:00
+      const endTime = new Date();
+      endTime.setHours(17, 20, 0); // Fim às 13:00
+      const currentTime = new Date();
+
+      if (currentTime >= endTime) {
+        currentTime.setHours(13, 50, 0); // Reinicia para 13:50
+      }
+
+      const totalDuration = endTime - startTime;
+      const elapsedTime = currentTime - startTime;
+      const percentage = (elapsedTime / totalDuration) * 100;
+
+      const timeline = document.getElementById('timeline');
+      timeline.style.left = percentage + '%';
     }
 
     $(document).ready(function () {
@@ -130,8 +142,9 @@
 
       // Chamar a função para definir a posição inicial do timeline
       updateTimelinePosition();
-      // Atualizar a posição do timeline a cada 10 minutos
-      setInterval(updateTimelinePosition, 10 * 60 * 1000);
+      // Posicionar os marcadores de horário
+      positionHourMarkers();
+      setInterval(updateTimelinePosition, 60000);
     });
 </script>
 
@@ -164,10 +177,11 @@
 
                 </div>
                 <div class="hour-list flex">
-                  <p>7:00</p>
-                  <p>9:00</p>
-                  <p>11:00</p>
-                  <p>13:00</p>
+                  <p class="hour-marker" id="hour1">13:50</p>
+                  <p class="hour-marker" id="hour2">14:30</p>
+                  <p class="hour-marker" id="hour3">15:00</p>
+                  <p class="hour-marker" id="hour4">16:10</p>
+                  <p class="hour-marker" id="hour5">17:20</p>
                 </div>
               </div>
               <div class="class-line">
