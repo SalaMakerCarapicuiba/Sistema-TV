@@ -22,8 +22,12 @@ class MateriaAdmin(admin.ModelAdmin):
 class HorarioAdmin(admin.ModelAdmin):
     pass
 
+class RecadosAdmin(admin.ModelAdmin):
+    pass
+
 
 admin.site.register(User, UserAdmin)
 admin.site.register(Notices, NoticesAdmin)
 admin.site.register(Materia, MateriaAdmin)
 admin.site.register(Horario, HorarioAdmin)
+admin.site.register(Recados, RecadosAdmin)

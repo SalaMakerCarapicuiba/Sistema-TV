@@ -18,6 +18,9 @@ class User(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+    def __str__(self):
+        return f'{self.full_name}'
+
 class Notices(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4)
     sharing = models.BooleanField()
@@ -36,6 +39,10 @@ class Notices(models.Model):
     responsible = models.CharField(max_length=20)
     name = models.CharField(max_length=30)
     imagem = models.ImageField(upload_to='imgNoticias/', null=True, blank=True)
+
+    def __str__(self):
+        return f'{self.name}'
+   
 
 class Materia(models.Model):
     DIAS_DA_SEMANA = [
@@ -68,3 +75,12 @@ class Horario(models.Model):
     horario_de_termino = models.TimeField(null=True)
     periodo = models.IntegerField(choices=PERIODO)
 
+class Recados (models.Model):
+    data_inicio = models.DateField()
+    data_final = models.DateField()
+    titulo = models.CharField(max_length=30)
+    contexto = models.CharField(max_length=20)
+    responsavel = models.CharField(max_length=20)
+
+    def __str__(self):
+        return f'{self.titulo}'
