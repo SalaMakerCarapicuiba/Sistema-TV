@@ -1,7 +1,3 @@
-// static/js/notices.js
-
-let noticeIndex = 0;
-
 function updateNoticeDisplay(data) {
   if (data.notice_image) {
     $(".small-window img").attr("src", data.notice_image);
@@ -18,6 +14,7 @@ function updateNoticeDisplay(data) {
 
 function fetchNoticeData() {
   $.get(home, { notice_index: noticeIndex }, function (data) {
+    console.log(data);  // Verifica o retorno
     if (data.error) {
       console.error(data.error);
     } else {
@@ -27,3 +24,5 @@ function fetchNoticeData() {
     console.error("Erro ao obter os dados das notícias.");
   });
 }
+
+
