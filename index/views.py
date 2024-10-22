@@ -1,7 +1,7 @@
 import requests
 from django.shortcuts import render
 from django.http import JsonResponse
-from .models import User, Notices
+from .models import User, Notices, Materia
 import datetime
 
 def home(request):
@@ -32,8 +32,9 @@ def home(request):
         agora = datetime.datetime.now()
         data_em_texto = '{}/{}/{}'.format(agora.day, agora.month, agora.year)
 
-        # Obtenção das notícias
+        # Obtenção das tabelas
         notices = Notices.objects.all()
+        materias = Materia.objects.all()
         total_notices = notices.count()
 
         # Índice da notícia enviado pelo AJAX (padrão: 0)
@@ -73,7 +74,8 @@ def home(request):
             'notices': notices,
             'agora': agora,
             'data': data_em_texto,
-            'hora_atual': agora.hour
+            'hora_atual': agora.hour,
+            'materias': materias
         }
 
         return render(request, "index.html", context)
