@@ -1,7 +1,7 @@
 import requests
 from django.shortcuts import render
 from django.http import JsonResponse
-from .models import User, Notices, Materia
+from .models import User, Notices
 import datetime
 
 def home(request):
@@ -33,7 +33,6 @@ def home(request):
         data_em_texto = '{}/{}/{}'.format(agora.day, agora.month, agora.year)
 
         # Obtenção das notícias
-        materias = Materia.objects.all()
         notices = Notices.objects.all()
         total_notices = notices.count()
 
@@ -74,9 +73,7 @@ def home(request):
             'notices': notices,
             'agora': agora,
             'data': data_em_texto,
-            'hora_atual': agora.hour,
-            'materias': materias,
-
+            'hora_atual': agora.hour
         }
 
         return render(request, "index.html", context)

@@ -42,7 +42,7 @@ class Notices(models.Model):
 
     def __str__(self):
         return f'{self.name}'
-
+   
 
 class Materia(models.Model):
     DIAS_DA_SEMANA = [
