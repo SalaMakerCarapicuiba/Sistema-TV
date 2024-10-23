@@ -1,4 +1,19 @@
 document.addEventListener('DOMContentLoaded', function () {
+  // Função para calcular a posição em percentual de um horário
+  function getPositionPercentage(hours, minutes) {
+    const startTime = new Date();
+    startTime.setHours(13, 50, 0); // Início às 13:50
+    const endTime = new Date();
+    endTime.setHours(17, 20, 0); // Fim às 17:20
+    const totalDuration = endTime - startTime;
+
+    const time = new Date();
+    time.setHours(hours, minutes, 0);
+    const elapsedTime = time - startTime;
+
+    return (elapsedTime / totalDuration) * 100;
+  }
+
   // Função para ajustar a largura das aulas de acordo com os horários de início e fim
   function adjustClassWidths(classes) {
     const classElements = document.querySelectorAll('.class'); // Seleciona todos os elementos com a classe 'class'
@@ -13,7 +28,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const endPercentage = getPositionPercentage(endHour, endMinute);
         const widthPercentage = endPercentage - startPercentage;
 
-        // Aplica o estilo de posição e largura ao elemento da aula
+        // Aplica a margem esquerda e a largura da aula
         const classElement = classElements[index];
         classElement.style.left = `${startPercentage}%`;
         classElement.style.width = `${widthPercentage}%`;
@@ -26,7 +41,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const startTime = new Date();
     startTime.setHours(13, 50, 0); // Início às 13:50
     const endTime = new Date();
-    endTime.setHours(17, 20, 0); // Fim às 20:20
+    endTime.setHours(17, 20, 0); // Fim às 17:20
     const totalDuration = endTime - startTime;
 
     // Função auxiliar para calcular a posição em percentual de um horário
@@ -51,49 +66,13 @@ document.addEventListener('DOMContentLoaded', function () {
     if (hour5) hour5.style.left = getMarkerPosition(17, 20) + '%';
   }
 
-  // Função para calcular a posição em percentual de um horário
-  function getPositionPercentage(hours, minutes) {
-    const startTime = new Date();
-    startTime.setHours(13, 50, 0); // Início às 13:50
-    const endTime = new Date();
-    endTime.setHours(17, 20, 0); // Fim às 20:20
-    const totalDuration = endTime - startTime;
-
-    const time = new Date();
-    time.setHours(hours, minutes, 0);
-    const elapsedTime = time - startTime;
-
-    return (elapsedTime / totalDuration) * 100;
-  }
-
-  // Função para atualizar a posição da timeline de acordo com o horário atual
-  function updateTimelinePosition() {
-    const startTime = new Date();
-    startTime.setHours(13, 50, 0); // Início às 13:50
-    const endTime = new Date();
-    endTime.setHours(17, 20, 0); // Fim às 20:20
-    const currentTime = new Date();
-
-    if (currentTime >= endTime || currentTime < startTime) {
-        currentTime.setHours(13, 50, 0); // Reinicia para 13:50
-    }
-
-    const totalDuration = endTime - startTime;
-    const elapsedTime = currentTime - startTime;
-    const percentage = (elapsedTime / totalDuration) * 100;
-
-    const timeline = document.getElementById('timeline');
-    timeline.style.left = percentage + '%';
-  }
-
   // Exemplo de uso da função com horários fictícios das aulas
   const classes = [
     { startHour: 13, startMinute: 50, endHour: 15, endMinute: 30 }, // Aula 1
-    { startHour: 13, startMinute: 50, endHour: 14, endMinute: 50 },  // Aula 2
-    { startHour: 15, startMinute: 0, endHour: 16, endMinute: 10 },  // Aula 3
-    { startHour: 13, startMinute: 10, endHour: 15, endMinute: 0 },  // Aula 4
-    { startHour: 16, startMinute: 0, endHour: 17, endMinute: 0 },   // Aula 5
-    { startHour: 16, startMinute: 0, endHour: 17, endMinute: 20 },  // Aula 6
+    { startHour: 15, startMinute: 0, endHour: 16, endMinute: 30 },  // Aula 2
+    { startHour: 16, startMinute: 0, endHour: 17, endMinute: 20 },  // Aula 3
+    { startHour: 14, startMinute: 0, endHour: 15, endMinute: 0 },   // Aula 4
+    { startHour: 16, startMinute: 0, endHour: 17, endMinute: 20 },  // Aula 5
   ];
 
   // Chama a função para ajustar a largura das aulas

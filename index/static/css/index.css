@@ -82,6 +82,7 @@ body {
     height: 100%;
     background-color: #FFA500;
     width: 3px;
+    z-index: 3;
 }
 
 .hours .hour-line #divisor-line{
@@ -101,7 +102,8 @@ body {
 
 .classes {
     flex-direction: column;
-    gap: 1.85rem;
+    gap: 3.75em;
+    height: 90%;
 }
 
 .class {
@@ -115,6 +117,7 @@ body {
     width: 210px;
     justify-content: center;
     color: white;
+    position: absolute;
 }
 
 .left-column .description {
