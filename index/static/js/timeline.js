@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const startTime = new Date();
     startTime.setHours(13, 50, 0); // Início às 13:50
     const endTime = new Date();
-    endTime.setHours(17, 20, 0); // Fim às 17:20
+    endTime.setHours(17, 20, 0); // Fim às 20:20 (corrigi o horário para coincidir com o seu intervalo final)
     const totalDuration = endTime - startTime;
 
     const time = new Date();
@@ -41,7 +41,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const startTime = new Date();
     startTime.setHours(13, 50, 0); // Início às 13:50
     const endTime = new Date();
-    endTime.setHours(17, 20, 0); // Fim às 17:20
+    endTime.setHours(17, 20, 0); // Fim às 20:20
     const totalDuration = endTime - startTime;
 
     // Função auxiliar para calcular a posição em percentual de um horário
@@ -80,4 +80,34 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // Posiciona os marcadores de horário
   positionHourMarkers();
+
+  // Função para atualizar a posição do timeline
+  function updateTimelinePosition() {
+    const startTime = new Date();
+    startTime.setHours(13, 50, 0); // Início às 13:50
+    const endTime = new Date();
+    endTime.setHours(17, 20, 0); // Fim às 20:20
+    const currentTime = new Date();
+
+    if (currentTime >= endTime || currentTime < startTime) {
+      currentTime.setHours(13, 50, 0); // Reinicia para 13:50
+    }
+
+    const totalDuration = endTime - startTime;
+    const elapsedTime = currentTime - startTime;
+    const percentage = (elapsedTime / totalDuration) * 100;
+
+    const timeline = document.getElementById('timeline');
+    if (timeline) {
+      timeline.style.left = percentage + '%';
+    } else {
+      console.error('Elemento #timeline não encontrado');
+    }
+  }
+
+  // Atualiza a posição do timeline
+  updateTimelinePosition();
+
+  // Atualiza a cada minuto
+  setInterval(updateTimelinePosition, 60000);
 });
