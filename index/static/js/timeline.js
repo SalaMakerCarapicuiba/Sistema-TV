@@ -68,7 +68,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // Exemplo de uso da função com horários fictícios das aulas
   const classes = [
-    { startHour: 13, startMinute: 50, endHour: 15, endMinute: 30 }, // Aula 1
+    { startHour: 13, startMinute: 50, endHour: 15, endMinute: 30 },
+    { startHour: 15, startMinute: 40, endHour: 17, endMinute: 10 }, // Aula 1
     { startHour: 15, startMinute: 0, endHour: 16, endMinute: 30 },  // Aula 2
     { startHour: 16, startMinute: 0, endHour: 17, endMinute: 20 },  // Aula 3
     { startHour: 14, startMinute: 0, endHour: 15, endMinute: 0 },   // Aula 4

@@ -18,23 +18,37 @@
 
   <script type="text/javascript">
     let noticeIndex = 0;
+    let recadoIndex = 0;
     let home = "{% url 'home' %}"
     let icons = "{% static 'src/icons/' %}"
 
     $(document).ready(function () {
-      // Carregar e atualizar os dados do clima e das notícias
-      fetchWeatherData();
-      fetchNoticeData();
+      // Carregar e atualizar os dados do clima, das notícias e dos recados
+      if (typeof fetchWeatherData === 'function') {
+        fetchWeatherData();
+        setInterval(fetchWeatherData, 5000);
+      }
 
-      // Atualizar o clima e as notícias a cada 30 segundos
-      setInterval(fetchWeatherData, 5000);
-      setInterval(fetchNoticeData, 30000);
+      if (typeof fetchNoticeData === 'function') {
+        fetchNoticeData();
+        setInterval(fetchNoticeData, 30000);
+      }
+
+      if (typeof fetchRecadoData === 'function') {
+        fetchRecadoData();  // Certifique-se de que a função fetchRecadoData está definida e sendo chamada corretamente
+        setInterval(fetchRecadoData, 30000);
+      }
 
       // Chamar a função para definir a posição inicial do timeline
-      updateTimelinePosition();
+      if (typeof updateTimelinePosition === 'function') {
+        updateTimelinePosition();
+        setInterval(updateTimelinePosition, 60000);
+      }
+
       // Posicionar os marcadores de horário
-      positionHourMarkers();
-      setInterval(updateTimelinePosition, 60000);
+      if (typeof positionHourMarkers === 'function') {
+        positionHourMarkers();
+      }
     });
 </script>
 
@@ -79,6 +93,10 @@
                   <div class="class-line">
                     <div class="class">
                       <p>{{ materias.0.professor }} - Sala {{ materias.0.sala }}</p>
+                    </div>
+
+                    <div class="class">
+                      <p>{{ materias.6.professor }} - Sala {{ materias.6.sala }}</p>
                     </div>
                   </div>
 
@@ -167,11 +185,11 @@
     </div>
 
     <div class="textbox flex column right">
-      {% with notice_index=0 %}
-      {% for notice in notices %}
-      {% if forloop.counter0 == notice_index %}
-      <h1>{{ notice.subject }}</h1>
-      <p>{{ notice.content }}</p>
+      {% with recado_index=0 %}
+      {% for recado in recados %}
+      {% if forloop.counter0 == recado_index %}
+      <h1>{{ recado.title }}</h1> <!-- Exibe o título do recado -->
+      <p>{{ recado.message }}</p> <!-- Exibe o conteúdo do recado -->
       {% endif %}
       {% endfor %}
       {% endwith %}
