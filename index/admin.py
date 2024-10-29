@@ -23,7 +23,13 @@ class HorarioAdmin(admin.ModelAdmin):
     pass
 
 class RecadosAdmin(admin.ModelAdmin):
-    pass
+    def imagem_recados(self, obj):
+        if obj.imagem:
+            return obj.imagem.url_for
+        return "(Nenhuma imagem)"
+    
+    imagem_recados.short_description = 'Imagem'
+    imagem_recados.allow_tags = True
 
 
 admin.site.register(User, UserAdmin)

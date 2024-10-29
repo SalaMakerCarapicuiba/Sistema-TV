@@ -59,6 +59,8 @@ class Materia(models.Model):
     dia_da_semana = MultiSelectField(choices=DIAS_DA_SEMANA)
     professor = models.CharField(max_length=30)
     sala = models.CharField(max_length=5)
+    horario_de_inicio = models.TimeField(null=True)
+    horario_de_termino = models.TimeField(null=True)
 
     def __str__(self):
         return f'{self.nome}'
@@ -81,6 +83,7 @@ class Recados (models.Model):
     titulo = models.CharField(max_length=30)
     contexto = models.CharField(max_length=20)
     responsavel = models.CharField(max_length=20)
+    imagem = models.ImageField(upload_to='imgRecados/', null=True, blank=True)
 
     def __str__(self):
         return f'{self.titulo}'
